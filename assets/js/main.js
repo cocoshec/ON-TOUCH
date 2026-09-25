@@ -718,16 +718,26 @@
     var form = $('#contact-form');
     if (!form) return;
 
-    var status = $('#form-status');
+    var status = $('#form-feedback') || $('#form-status');
     var submitBtn = $('button[type="submit"]', form);
 
     function setFieldError(field, message) {
-      var wrap = field.closest('.field');
+      var wrap = field.closest('.form-group') || field.closest('.field');
       if (!wrap) return;
-      var slot = $('.field__error', wrap);
+
+      var slot = $('.form-error, .field__error', wrap);
+      if (message && !slot) {
+        slot = document.createElement('span');
+        slot.className = 'form-error';
+        wrap.appendChild(slot);
+      }
+
       wrap.setAttribute('data-invalid', message ? 'true' : 'false');
       field.setAttribute('aria-invalid', message ? 'true' : 'false');
-      if (slot) slot.textContent = message || '';
+      if (slot) {
+        slot.textContent = message || '';
+        slot.style.display = message ? 'block' : 'none';
+      }
     }
 
     function validateField(field) {
@@ -738,11 +748,11 @@
         return false;
       }
       if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
-        setFieldError(field, 'Introduce un correo válido.');
+        setFieldError(field, 'Introduce un correo electrónico válido.');
         return false;
       }
       if (field.name === 'telefono' && value && !/^[\d\s()+.-]{7,20}$/.test(value)) {
-        setFieldError(field, 'Introduce un teléfono válido.');
+        setFieldError(field, 'Introduce un número de teléfono válido.');
         return false;
       }
       if (field.name === 'mensaje' && value && value.length < 10) {
@@ -755,21 +765,29 @@
     }
 
     var fields = $$('input, textarea, select', form).filter(function (f) {
-      return f.type !== 'submit' && !f.closest('.hp-field');
+      return f.type !== 'submit' && !f.closest('.hp-field') && f.name !== 'website';
     });
 
     fields.forEach(function (field) {
       field.addEventListener('blur', function () { validateField(field); });
       field.addEventListener('input', function () {
-        if (field.closest('.field').getAttribute('data-invalid') === 'true') validateField(field);
+        var wrap = field.closest('.form-group') || field.closest('.field');
+        if (wrap && wrap.getAttribute('data-invalid') === 'true') {
+          validateField(field);
+        }
       });
     });
 
-    function showStatus(state, message) {
+    function showStatus(state, messageHtml) {
       if (!status) return;
       status.setAttribute('data-state', state);
-      status.textContent = message;
-      status.classList.add('is-visible');
+      status.className = 'form-feedback is-visible is-' + (state === 'ok' ? 'success' : 'error');
+      status.innerHTML = messageHtml;
+      
+      // Desplazar suavemente hasta el mensaje si no está visible en pantalla
+      try {
+        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (e) {}
     }
 
     form.addEventListener('submit', function (e) {
@@ -781,8 +799,8 @@
       });
 
       if (!valid) {
-        showStatus('error', 'Revisa los campos marcados antes de enviar.');
-        var firstBad = $('.field[data-invalid="true"] input, .field[data-invalid="true"] textarea, .field[data-invalid="true"] select', form);
+        showStatus('error', '<i class="fa-solid fa-circle-exclamation"></i> Por favor, completa todos los campos requeridos antes de enviar.');
+        var firstBad = $('.form-group[data-invalid="true"] input, .form-group[data-invalid="true"] textarea, .form-group[data-invalid="true"] select, .field[data-invalid="true"] input, .field[data-invalid="true"] textarea, .field[data-invalid="true"] select', form);
         if (firstBad) firstBad.focus();
         return;
       }
@@ -790,7 +808,7 @@
       // Trampa antispam: si viene relleno, fingimos éxito y no enviamos nada
       var honey = $('input[name="website"]', form);
       if (honey && honey.value) {
-        showStatus('ok', 'Mensaje enviado. Gracias por escribirnos.');
+        showStatus('ok', '<i class="fa-solid fa-circle-check"></i> Mensaje enviado correctamente. Te responderemos muy pronto.');
         form.reset();
         return;
       }
@@ -799,54 +817,106 @@
       new FormData(form).forEach(function (value, key) { data[key] = value; });
       delete data.website;
 
-      submitBtn.classList.add('btn--loading');
-      submitBtn.setAttribute('aria-disabled', 'true');
-      if (status) status.classList.remove('is-visible');
+      if (!data.asunto && data.servicio) {
+        data.asunto = data.servicio;
+      }
 
-      var endpoint = form.getAttribute('data-endpoint') || '/api/contact';
+      if (submitBtn) {
+        submitBtn.classList.add('btn--loading');
+        submitBtn.setAttribute('aria-disabled', 'true');
+        submitBtn.disabled = true;
+      }
+      if (status) {
+        status.className = 'form-feedback';
+        status.innerHTML = '';
+      }
 
-      fetch(endpoint, {
+      var remoteMailEndpoint = 'https://www.on-touch.net/mail.php';
+      var localEndpoint = form.getAttribute('data-endpoint') || form.getAttribute('action') || 'mail.php';
+      
+      var primaryEndpoint = (window.location.protocol === 'file:' || window.location.hostname.indexOf('github.io') !== -1)
+        ? remoteMailEndpoint
+        : localEndpoint;
+
+      var payloadData = {
+        nombre: data.nombre || '',
+        empresa: data.empresa || '',
+        email: data.email || '',
+        telefono: data.telefono || '',
+        servicio: data.servicio || data.asunto || '',
+        mensaje: data.mensaje || '',
+        _subject: 'Nuevo contacto web: ' + (data.servicio || data.asunto || 'Consulta') + ' — ' + (data.empresa || data.nombre || ''),
+        _captcha: 'false',
+        _template: 'table'
+      };
+
+      function enviarViaFormSubmit() {
+        fetch('https://formsubmit.co/ajax/clientes@on-touch.net', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payloadData)
+        })
+          .then(function (fsRes) {
+            return fsRes.json().catch(function () { return { success: fsRes.ok }; });
+          })
+          .then(function (fsData) {
+            if (fsData && (fsData.success === 'true' || fsData.success === true || fsData.message)) {
+              showStatus('ok', '<strong><i class="fa-solid fa-circle-check"></i> ¡Mensaje enviado con éxito!</strong><br>Gracias <b>' + (data.nombre || '') + '</b>, tu solicitud ha sido enviada a nuestro correo (<b>clientes@on-touch.net</b>). Te responderemos a <b>' + (data.email || 'tu correo') + '</b> muy pronto.');
+              form.reset();
+              fields.forEach(function (f) { setFieldError(f, ''); });
+            } else {
+              throw new Error('Respuesta inválida del servicio de envío');
+            }
+          })
+          .catch(function () {
+            var wa = form.getAttribute('data-whatsapp') || '584122118606';
+            var text = 'Hola On-Touch, soy ' + (data.nombre || '') + ' de ' + (data.empresa || '') + '.\n' +
+              'Servicio de interés: ' + (data.servicio || data.asunto || '') + '\n' +
+              'Mensaje: ' + (data.mensaje || '') + '\n' +
+              'Contacto: ' + (data.email || '') + ' / ' + (data.telefono || '');
+            var link = '<br><a href="https://wa.me/' + wa + '?text=' + encodeURIComponent(text) +
+              '" target="_blank" rel="noopener" class="btn btn--primary" style="display:inline-block;margin-top:12px;padding:8px 18px;font-size:0.88rem;"><i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp</a>';
+
+            showStatus('error', 'No se pudo enviar el correo automáticamente. Puedes escribirnos directamente por WhatsApp:' + link);
+          })
+          .then(function () {
+            if (submitBtn) {
+              submitBtn.classList.remove('btn--loading');
+              submitBtn.removeAttribute('aria-disabled');
+              submitBtn.disabled = false;
+            }
+          });
+      }
+
+      fetch(primaryEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
       })
         .then(function (res) {
-          return res.json().catch(function () { return { success: res.ok }; });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
         })
         .then(function (payload) {
           if (payload && payload.success) {
-            showStatus('ok', payload.message || 'Mensaje enviado. Te responderemos muy pronto.');
+            showStatus('ok', '<strong><i class="fa-solid fa-circle-check"></i> ¡Mensaje enviado con éxito!</strong><br>Gracias ' + (data.nombre ? '<b>' + data.nombre + '</b>' : '') + ', tu mensaje ha sido enviado a nuestro correo (<b>clientes@on-touch.net</b>). Te responderemos a <b>' + (data.email || 'tu correo') + '</b> muy pronto.');
             form.reset();
             fields.forEach(function (f) { setFieldError(f, ''); });
+            if (submitBtn) {
+              submitBtn.classList.remove('btn--loading');
+              submitBtn.removeAttribute('aria-disabled');
+              submitBtn.disabled = false;
+            }
           } else {
-            throw new Error((payload && payload.message) || 'Error al enviar');
+            throw new Error((payload && payload.message) || 'Error en el servidor de correo');
           }
         })
         .catch(function () {
-          // Plan B: dejamos el mensaje listo por WhatsApp o correo
-          var wa = form.getAttribute('data-whatsapp');
-          var mailto = form.getAttribute('data-mailto');
-          var link = '';
-
-          if (wa) {
-            var text = 'Hola On-Touch, soy de ' + (data.empresa || '') + '.\n' +
-              'Asunto: ' + (data.asunto || '') + '\n' +
-              (data.mensaje || '') + '\n' +
-              'Contacto: ' + (data.email || '') + ' / ' + (data.telefono || '');
-            link = ' <a href="https://wa.me/' + wa + '?text=' + encodeURIComponent(text) +
-              '" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>';
-          } else if (mailto) {
-            link = ' <a href="mailto:' + mailto + '">Escríbenos por correo</a>';
-          }
-
-          showStatus('error', '');
-          status.innerHTML = 'No pudimos enviar el mensaje en este momento.' + link;
-          status.setAttribute('data-state', 'error');
-          status.classList.add('is-visible');
-        })
-        .then(function () {
-          submitBtn.classList.remove('btn--loading');
-          submitBtn.removeAttribute('aria-disabled');
+          // Si el endpoint PHP remoto falla o no está publicado aún en on-touch.net, pasa a FormSubmit Cloud
+          enviarViaFormSubmit();
         });
     });
   }

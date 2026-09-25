@@ -13,6 +13,14 @@
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Accept');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 const DESTINATARIO = 'clientes@on-touch.net';
 
@@ -51,7 +59,7 @@ function una_linea($valor, int $max = 200): string
 $empresa  = una_linea($datos['empresa']  ?? '', 120);
 $email    = una_linea($datos['email']    ?? '', 160);
 $telefono = una_linea($datos['telefono'] ?? '', 40);
-$asunto   = una_linea($datos['asunto']   ?? '', 120) ?: 'Contacto desde el sitio web';
+$asunto   = una_linea($datos['asunto'] ?? $datos['servicio'] ?? '', 120) ?: 'Contacto desde el sitio web';
 $mensaje  = mb_substr(trim((string) ($datos['mensaje'] ?? '')), 0, 5000);
 
 $errores = [];

@@ -146,7 +146,7 @@ app.post(['/api/contact', '/mail.php'], contactLimiter, async (req, res) => {
   const empresa = singleLine(body.empresa, 120);
   const email = singleLine(body.email, 160);
   const telefono = singleLine(body.telefono, 40);
-  const asunto = singleLine(body.asunto, 120) || 'Contacto desde el sitio web';
+  const asunto = singleLine(body.asunto || body.servicio, 120) || 'Contacto desde el sitio web';
   const mensaje = String(body.mensaje || '').trim().slice(0, 5000);
 
   const errores = [];
