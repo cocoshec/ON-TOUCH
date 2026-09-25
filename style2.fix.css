@@ -1,0 +1,19 @@
+/* Correcciones rápidas para evitar que el botón del hero se corte */
+
+.header-content {
+  /* Permitir que elementos con sombras o bordes sobresalgan */
+  overflow: visible !important;
+  padding-bottom: 80px !important; /* Espacio para el botón */
+}
+
+.home-text h4,
+.home-text p {
+  white-space: normal !important; /* Permitir quiebre de línea */
+}
+
+/* Evitar transform inesperado en .header-social si existe */
+.header-social { transform: none !important; right: 50px !important; left: auto !important; }
+
+/* Asegurar que el botón tenga suficiente z-index para no quedar detrás */
+.home-btn { z-index: 5; }
+.btn-1 { display: inline-block; }

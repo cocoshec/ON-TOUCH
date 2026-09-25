@@ -1,0 +1,52 @@
+# On-Touch Consulting — configuración para Apache / cPanel
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Forzar HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Los proyectos ahora viven en la portada. La bandera NE evita que Apache
+  # codifique la almohadilla como %23 y rompa el ancla.
+  RewriteRule ^proyectos\.html?$ /#proyectos [R=301,NE,L]
+  RewriteRule ^proyectos/?$      /#proyectos [R=301,NE,L]
+</IfModule>
+
+# Página de error propia
+ErrorDocument 404 /404.html
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# Caché de recursos estáticos
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                "access plus 1 year"
+  ExpiresByType application/javascript  "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/x-icon            "access plus 1 year"
+  ExpiresByType font/otf                "access plus 1 year"
+  ExpiresByType font/ttf                "access plus 1 year"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+# Tipos MIME que algunos servidores no traen configurados
+<IfModule mod_mime.c>
+  AddType image/webp             .webp
+  AddType font/otf               .otf
+  AddType font/ttf               .ttf
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# No servir archivos internos si alguno se cuela en la subida
+<FilesMatch "(^\.env|^package(-lock)?\.json$|^README\.md$|\.py$)">
+  Require all denied
+</FilesMatch>
+
+# Evitar el listado de directorios
+Options -Indexes

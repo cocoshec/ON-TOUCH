@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082521">
+
+  <title>Proyectos | On-Touch Consulting</title>
+  <meta name="description" content="Proyectos de software desarrollados por On-Touch Consulting: sistemas administrativos, puntos de venta, nóminas y plataformas de distribución en producción.">
+  <link rel="canonical" href="https://www.on-touch.net/proyectos.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_VE">
+  <meta property="og:site_name" content="On-Touch Consulting">
+  <meta property="og:title" content="Proyectos | On-Touch Consulting">
+  <meta property="og:description" content="Sistemas administrativos, puntos de venta, nóminas y plataformas de distribución desarrollados a medida.">
+  <meta property="og:url" content="https://www.on-touch.net/proyectos.html">
+  <meta property="og:image" content="https://www.on-touch.net/assets/img/og-image.jpg">
+
+  <link rel="icon" href="assets/img/icon-180.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/icon-180.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/Syne-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/Serotiva-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav__brand" aria-label="On-Touch Consulting, ir al inicio">
+          <img src="assets/img/logo-blanco.png" alt="On-Touch Consulting" class="nav__logo" width="147" height="38">
+        </a>
+
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú de navegación">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <ul class="nav__menu" id="nav-menu">
+          <li><a href="index.html#home" class="nav__link">Inicio</a></li>
+          <li><a href="index.html#about" class="nav__link">Nosotros</a></li>
+          <li><a href="index.html#services" class="nav__link">Servicios</a></li>
+          <li><a href="index.html#implementacion" class="nav__link">Proceso</a></li>
+          <li><a href="proyectos.html" class="nav__link is-active" aria-current="page">Proyectos</a></li>
+          <li><a href="index.html#clientes" class="nav__link">Clientes</a></li>
+          <li><a href="index.html#contact" class="btn btn--primary nav__cta">Hablemos</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" style="justify-content:center">Portafolio</p>
+        <h1 data-split data-reveal>Proyectos <span class="accent" style="background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent">en producción</span></h1>
+        <p>
+          Sistemas que hoy sostienen la operación diaria de nuestros clientes. Pulsa cualquier
+          imagen para verla en detalle.
+        </p>
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href="index.html">Inicio</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Proyectos</span>
+        </nav>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" id="proyectos">
+      <div class="container">
+
+        <div class="filters" data-filter-group="#projects-grid" role="group" aria-label="Filtrar proyectos por categoría">
+          <button class="filter-btn is-active" type="button" data-filter="*" aria-pressed="true">Todos</button>
+          <button class="filter-btn" type="button" data-filter="administracion" aria-pressed="false">Administración</button>
+          <button class="filter-btn" type="button" data-filter="comercial" aria-pressed="false">Punto de venta</button>
+          <button class="filter-btn" type="button" data-filter="nominas" aria-pressed="false">Nóminas</button>
+          <button class="filter-btn" type="button" data-filter="distribucion" aria-pressed="false">Distribución</button>
+          <button class="filter-btn" type="button" data-filter="produccion" aria-pressed="false">Producción</button>
+          <button class="filter-btn" type="button" data-filter="movil" aria-pressed="false">Movilidad</button>
+        </div>
+
+        <div class="grid" id="projects-grid">
+
+          <!-- Con captura propia: la miniatura se ve en la tarjeta y la imagen
+               grande se abre en el visor. -->
+          <article class="project tilt project--administracion grid-item administracion" data-reveal>
+            <div class="project__media">
+              <img src="assets/img/proyectos/administrativo-thumb.webp"
+                   alt="Módulo principal del sistema administrativo"
+                   width="800" height="450" loading="lazy" decoding="async">
+              <div class="project__overlay">
+                <button class="project__zoom" type="button"
+                        data-lightbox="assets/img/proyectos/administrativo.webp"
+                        data-caption="Sistema administrativo integral — módulo principal"
+                        aria-label="Ampliar imagen: sistema administrativo integral">
+                  <i class="fa-solid fa-expand" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Administración</span>
+              <h2 class="project__title">Sistema administrativo integral</h2>
+              <p>Inventario, facturación, cuentas por cobrar y pagar, y reportes gerenciales unificados en una sola base de datos.</p>
+            </div>
+          </article>
+
+          <article class="project tilt project--comercial grid-item comercial" data-reveal style="--reveal-delay:90ms">
+            <div class="project__media">
+              <img src="assets/img/proyectos/punto-de-venta-thumb.webp"
+                   alt="Pantalla de cobro del punto de venta"
+                   width="800" height="463" loading="lazy" decoding="async">
+              <div class="project__overlay">
+                <button class="project__zoom" type="button"
+                        data-lightbox="assets/img/proyectos/punto-de-venta.webp"
+                        data-caption="Punto de venta — pantalla de cobro"
+                        aria-label="Ampliar imagen: punto de venta">
+                  <i class="fa-solid fa-expand" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Punto de venta</span>
+              <h2 class="project__title">Punto de venta (POS)</h2>
+              <p>Cobro rápido con lector de códigos, control de caja por turno y descarga automática de inventario.</p>
+            </div>
+          </article>
+
+          <!-- Sin captura propia todavía: portada de marca. Para cambiarla por
+               una imagen real, sustituye este bloque .project__cover por el
+               bloque .project__media de los proyectos de arriba. -->
+          <article class="project tilt project--nominas grid-item nominas" data-reveal style="--reveal-delay:180ms">
+            <div class="project__cover">
+              <div class="project__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="project__cover-inner">
+                <div class="project__cover-icon"><i class="fa-solid fa-money-check-dollar" aria-hidden="true"></i></div>
+                <p class="project__cover-label">Nóminas</p>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Nóminas</span>
+              <h2 class="project__title">Gestión de nóminas</h2>
+              <p>Cálculo automático de remuneraciones, deducciones legales y aportes, con recibos y reportes listos para firmar.</p>
+            </div>
+          </article>
+
+          <article class="project tilt project--distribucion grid-item distribucion" data-reveal>
+            <div class="project__cover">
+              <div class="project__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="project__cover-inner">
+                <div class="project__cover-icon"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></div>
+                <p class="project__cover-label">Distribución</p>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Distribución</span>
+              <h2 class="project__title">Plataforma de distribución</h2>
+              <p>Control de rutas, carga de camiones, liquidación de vendedores y seguimiento de entregas en tiempo real.</p>
+            </div>
+          </article>
+
+          <article class="project tilt project--produccion grid-item produccion" data-reveal style="--reveal-delay:90ms">
+            <div class="project__cover">
+              <div class="project__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="project__cover-inner">
+                <div class="project__cover-icon"><i class="fa-solid fa-gears" aria-hidden="true"></i></div>
+                <p class="project__cover-label">Producción</p>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Producción</span>
+              <h2 class="project__title">Control de producción</h2>
+              <p>Órdenes de fabricación, consumo de materia prima, control de calidad y costeo por lote.</p>
+            </div>
+          </article>
+
+          <article class="project tilt project--movil grid-item movil" data-reveal style="--reveal-delay:180ms">
+            <div class="project__cover">
+              <div class="project__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="project__cover-inner">
+                <div class="project__cover-icon"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></div>
+                <p class="project__cover-label">Aplicación móvil</p>
+              </div>
+            </div>
+            <div class="project__body">
+              <span class="project__tag">Movilidad</span>
+              <h2 class="project__title">Aplicación móvil de ventas</h2>
+              <p>Pedidos desde el celular del vendedor, catálogo con precios actualizados y sincronización con el sistema central.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Aviso cuando un filtro no devuelve resultados -->
+        <p data-filter-empty hidden style="text-align:center;color:var(--text-muted);margin-top:2rem">
+          Todavía no hay proyectos publicados en esta categoría.
+          <a href="index.html#contact">Cuéntanos el tuyo</a>.
+        </p>
+
+        <div class="cta-band" style="margin-top:clamp(3rem,6vw,4.5rem)" data-reveal="scale">
+          <h2 data-split data-reveal>¿Tu proyecto podría estar aquí?</h2>
+          <p>Diseñamos el sistema alrededor de tu forma de trabajar. Cuéntanos qué necesitas y preparamos una propuesta.</p>
+          <div class="cta-band__actions">
+            <a href="index.html#contact" class="btn btn--dark" data-magnetic>
+              <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i> Solicitar propuesta
+            </a>
+            <a href="https://wa.me/584122118606" class="btn btn--outline-dark" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Escribir por WhatsApp
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <img src="assets/img/logo-blanco.png" alt="On-Touch Consulting" class="footer__logo" width="163" height="42" loading="lazy">
+          <p class="footer__about">
+            Soluciones de software y consultoría estratégica enfocadas en la excelencia
+            y el control operativo total.
+          </p>
+          <div class="footer__socials">
+            <a class="social-btn" href="https://www.instagram.com/ontouchevolution/" target="_blank" rel="noopener" aria-label="Instagram">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a class="social-btn" href="https://wa.me/584122118606" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="index.html#services">Sistemas administrativos</a></li>
+            <li><a href="index.html#services">Nóminas y contabilidad</a></li>
+            <li><a href="index.html#services">Distribución y logística</a></li>
+            <li><a href="index.html#services">Aplicaciones móviles</a></li>
+            <li><a href="index.html#services">Soporte técnico</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>On-Touch</h4>
+          <ul>
+            <li><a href="index.html#about">Nosotros</a></li>
+            <li><a href="index.html#implementacion">Implementación</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="index.html#clientes">Clientes</a></li>
+            <li><a href="index.html#faq">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Contacto</h4>
+          <p><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+584122118606">+58 412 211 8606</a></p>
+          <p><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:gerencia@on-touch.net">gerencia@on-touch.net</a></p>
+          <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> San Diego, Carabobo</p>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© <span data-year>2025</span> On-Touch Consulting, C.A. Todos los derechos reservados.</p>
+        <nav aria-label="Enlaces del pie de página">
+          <a href="index.html">Inicio</a>
+          <a href="index.html#services">Servicios</a>
+          <a href="index.html#contact">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fab-stack">
+    <a class="fab fab--wa" href="https://wa.me/584122118606" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+    </a>
+    <button class="fab fab--top" type="button" aria-label="Volver arriba">
+      <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+
+</html>
