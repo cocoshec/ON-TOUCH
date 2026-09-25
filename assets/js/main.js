@@ -612,9 +612,16 @@
   /* ------------------------------------------------------------------
      Visor de imágenes (lightbox) accesible
      ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------
+     Visor de imágenes (lightbox) accesible por grupo de proyecto
+     ------------------------------------------------------------------ */
   function initLightbox() {
-    var triggers = $$('[data-lightbox]');
-    if (!triggers.length) return;
+    var allCards = $$('.project-card, [data-gallery-group]');
+    var standaloneTriggers = $$('[data-lightbox]').filter(function (el) {
+      return !el.closest('.project-card') && !el.closest('[data-gallery-group]');
+    });
+
+    if (!allCards.length && !standaloneTriggers.length) return;
 
     var box = document.createElement('div');
     box.className = 'lightbox';
@@ -631,25 +638,49 @@
       '<figure class="lightbox__figure">' +
         '<img alt="">' +
         '<figcaption class="lightbox__caption"></figcaption>' +
+        '<div class="lightbox__counter" style="color: rgba(218,251,252,0.7); font-size: 0.82rem; margin-top: 6px; font-weight: 600;"></div>' +
       '</figure>';
     document.body.appendChild(box);
 
     var img = $('img', box);
     var caption = $('.lightbox__caption', box);
-    var index = 0;
+    var counter = $('.lightbox__counter', box);
+    var prevBtn = $('.lightbox__prev', box);
+    var nextBtn = $('.lightbox__next', box);
+
+    var currentItems = [];
+    var currentIndex = 0;
     var lastFocused = null;
 
-    function show(i) {
-      index = (i + triggers.length) % triggers.length;
-      var trigger = triggers[index];
-      img.src = trigger.getAttribute('data-lightbox');
-      img.alt = trigger.getAttribute('data-caption') || '';
-      caption.textContent = trigger.getAttribute('data-caption') || '';
+    function render() {
+      if (!currentItems.length) return;
+      var item = currentItems[currentIndex];
+      img.src = item.src;
+      img.alt = item.caption || '';
+      caption.textContent = item.caption || '';
+      
+      if (currentItems.length > 1) {
+        counter.textContent = 'Foto ' + (currentIndex + 1) + ' de ' + currentItems.length;
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      } else {
+        counter.textContent = '';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
     }
 
-    function open(i) {
+    function show(i) {
+      if (!currentItems.length) return;
+      currentIndex = (i + currentItems.length) % currentItems.length;
+      render();
+    }
+
+    function openGallery(items, startIdx) {
       lastFocused = document.activeElement;
-      show(i);
+      currentItems = items;
+      currentIndex = startIdx || 0;
+      render();
       box.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       $('.lightbox__close', box).focus();
@@ -661,16 +692,56 @@
       if (lastFocused) lastFocused.focus();
     }
 
-    triggers.forEach(function (trigger, i) {
+    // Configurar cada tarjeta de proyecto como una galería independiente e aislada
+    allCards.forEach(function (card) {
+      var triggers = $$('[data-lightbox]', card);
+      var extraAttr = card.getAttribute('data-gallery-images') || (triggers[0] ? triggers[0].getAttribute('data-gallery-images') : null);
+
+      var items = [];
+      triggers.forEach(function (t) {
+        var src = t.getAttribute('data-lightbox');
+        var cap = t.getAttribute('data-caption') || '';
+        if (src && !items.some(function(it){ return it.src === src; })) {
+          items.push({ src: src, caption: cap });
+        }
+      });
+
+      if (extraAttr) {
+        extraAttr.split('|').forEach(function (str) {
+          var parts = str.split('::');
+          var src = parts[0].trim();
+          var cap = parts[1] ? parts[1].trim() : (items[0] ? items[0].caption : '');
+          if (src && !items.some(function(it){ return it.src === src; })) {
+            items.push({ src: src, caption: cap });
+          }
+        });
+      }
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          var clickedSrc = trigger.getAttribute('data-lightbox');
+          var startIdx = 0;
+          items.forEach(function(it, idx) {
+            if (it.src === clickedSrc) startIdx = idx;
+          });
+          openGallery(items, startIdx);
+        });
+      });
+    });
+
+    standaloneTriggers.forEach(function (trigger) {
       trigger.addEventListener('click', function (e) {
         e.preventDefault();
-        open(i);
+        var src = trigger.getAttribute('data-lightbox');
+        var cap = trigger.getAttribute('data-caption') || '';
+        openGallery([{ src: src, caption: cap }], 0);
       });
     });
 
     $('.lightbox__close', box).addEventListener('click', close);
-    $('.lightbox__prev', box).addEventListener('click', function () { show(index - 1); });
-    $('.lightbox__next', box).addEventListener('click', function () { show(index + 1); });
+    prevBtn.addEventListener('click', function () { show(currentIndex - 1); });
+    nextBtn.addEventListener('click', function () { show(currentIndex + 1); });
 
     box.addEventListener('click', function (e) {
       if (e.target === box) close();
@@ -679,19 +750,8 @@
     document.addEventListener('keydown', function (e) {
       if (!box.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(index - 1);
-      if (e.key === 'ArrowRight') show(index + 1);
-      if (e.key === 'Tab') {
-        // Mantiene el foco dentro del visor
-        var focusables = $$('button', box);
-        var first = focusables[0];
-        var last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault(); last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault(); first.focus();
-        }
-      }
+      if (e.key === 'ArrowLeft') show(currentIndex - 1);
+      if (e.key === 'ArrowRight') show(currentIndex + 1);
     });
   }
 

@@ -979,10 +979,17 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 4px 14px rgba(98, 179, 19, 0.25);
 }
 
+.is-hidden {
+  display: none !important;
+}
 .portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
+}
+.portfolio-grid > .project-card {
+  width: calc(33.3333% - 21.34px);
 }
 
 .project-card {
@@ -1848,7 +1855,7 @@ h1, h2, h3, h4, h5, h6 {
   .home-hero__visual { max-width: 580px; margin: 0 auto; }
   .features-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .portfolio-grid > .project-card { width: calc(50% - 16px); }
   .process-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; }
@@ -1916,7 +1923,8 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
   }
   .nav__menu.is-open { display: flex; }
-  .services-grid, .portfolio-grid, .process-grid { grid-template-columns: 1fr; }
+  .services-grid, .process-grid { grid-template-columns: 1fr; }
+  .portfolio-grid > .project-card { width: 100%; }
   .clients-grid { grid-template-columns: repeat(3, 1fr); }
   .form-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }

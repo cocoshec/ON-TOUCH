@@ -102,12 +102,11 @@
       <div class="container">
 
         <!-- FILTROS POR CATEGORÍA -->
-        <div class="portfolio-filter" role="group" aria-label="Filtrar por categoría">
-          <button class="filter-btn is-active" type="button" data-filter="all">Todos</button>
+        <div class="portfolio-filter" role="group" aria-label="Filtrar por categoría" data-filter-group=".portfolio-grid">
+          <button class="filter-btn is-active" type="button" data-filter="*">Todos</button>
           <button class="filter-btn" type="button" data-filter="gestion">Gestión & ERP</button>
           <button class="filter-btn" type="button" data-filter="comercial">Punto de Venta</button>
           <button class="filter-btn" type="button" data-filter="nominas">Nóminas</button>
-          <button class="filter-btn" type="button" data-filter="distribucion">Distribución</button>
           <button class="filter-btn" type="button" data-filter="produccion">Producción</button>
           <button class="filter-btn" type="button" data-filter="movil">Movilidad</button>
         </div>
@@ -116,14 +115,14 @@
         <div class="portfolio-grid">
 
           <!-- 1. Administrativo -->
-          <article class="project-card reveal" data-category="gestion">
+          <article class="project-card reveal grid-item gestion" data-category="gestion" data-gallery-images="assets/img/proyectos/admin-1.png::Sistema Administrativo - Opciones Generales|assets/img/proyectos/admin-2.png::Sistema Administrativo - Despacho|assets/img/proyectos/admin-3.png::Sistema Administrativo - Cuentas por Cobrar|assets/img/proyectos/admin-4.png::Sistema Administrativo - Facturación|assets/img/proyectos/admin-5.png::Sistema Administrativo - Informes de Ventas">
             <div class="project-card__mockup">
               <div class="project-card__mockup-bar">
                 <div class="project-card__dots"><span></span><span></span><span></span></div>
                 <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">admin-suite.sys</span>
               </div>
-              <img src="assets/img/proyectos/administrativo.webp" alt="Sistema Administrativo Integral" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/administrativo.webp" data-caption="Sistema Administrativo Integral — Inventarios, Compras y Finanzas" aria-label="Ampliar imagen">
+              <img src="assets/img/proyectos/admin-1.png" alt="Sistema Administrativo Integral" class="project-card__img" loading="lazy">
+              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/admin-1.png" data-caption="Sistema Administrativo Integral — Opciones Generales" aria-label="Ampliar imagen">
                 <i class="fa-solid fa-expand"></i>
               </button>
             </div>
@@ -143,14 +142,14 @@
           </article>
 
           <!-- 2. Punto de Venta (POS) -->
-          <article class="project-card reveal" data-category="comercial">
+          <article class="project-card reveal grid-item comercial" data-category="comercial" data-gallery-images="assets/img/proyectos/pos-1.png::Punto de Venta - Arqueo de Caja|assets/img/proyectos/pos-2.png::Punto de Venta - Ingresos y Egresos|assets/img/proyectos/pos-3.png::Punto de Venta - Consulta de Productos|assets/img/proyectos/pos-4.png::Punto de Venta - Pantalla Principal|assets/img/proyectos/pos-5.png::Punto de Venta - Módulo de Facturación">
             <div class="project-card__mockup">
               <div class="project-card__mockup-bar">
                 <div class="project-card__dots"><span></span><span></span><span></span></div>
                 <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">pos-checkout.sys</span>
               </div>
-              <img src="assets/img/proyectos/punto-de-venta.webp" alt="Punto de Venta POS" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/punto-de-venta.webp" data-caption="Punto de Venta (POS) de Alta Velocidad para Retail" aria-label="Ampliar imagen">
+              <img src="assets/img/proyectos/pos-1.png" alt="Punto de Venta POS" class="project-card__img" loading="lazy">
+              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/pos-1.png" data-caption="Punto de Venta (POS) - Arqueo de Caja" aria-label="Ampliar imagen">
                 <i class="fa-solid fa-expand"></i>
               </button>
             </div>
@@ -169,14 +168,14 @@
           </article>
 
           <!-- 3. Nóminas -->
-          <article class="project-card reveal" data-category="nominas">
+          <article class="project-card reveal grid-item nominas" data-category="nominas" data-gallery-images="assets/img/proyectos/nomina-5.png::Sistema de Nóminas - Portada|assets/img/proyectos/nomina-1.png::Sistema de Nóminas - Pantalla 1|assets/img/proyectos/nomina-2.png::Sistema de Nóminas - Pantalla 2|assets/img/proyectos/nomina-3.png::Sistema de Nóminas - Pantalla 3|assets/img/proyectos/nomina-4.png::Sistema de Nóminas - Pantalla 4">
             <div class="project-card__mockup">
               <div class="project-card__mockup-bar">
                 <div class="project-card__dots"><span></span><span></span><span></span></div>
                 <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">payroll-hr.sys</span>
               </div>
-              <img src="assets/img/proyectos/nominas.webp" alt="Gestión de Nóminas y Recursos Humanos" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/nominas.webp" data-caption="Sistema de Nóminas y Recursos Humanos (Normativa LOTTT)" aria-label="Ampliar imagen">
+              <img src="assets/img/proyectos/nomina-5.png" alt="Gestión de Nóminas y Recursos Humanos" class="project-card__img" loading="lazy">
+              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/nomina-5.png" data-caption="Sistema de Nóminas y Recursos Humanos (Normativa LOTTT)" aria-label="Ampliar imagen">
                 <i class="fa-solid fa-expand"></i>
               </button>
             </div>
@@ -194,34 +193,16 @@
             </div>
           </article>
 
-          <!-- 4. Distribución -->
-          <article class="project-card reveal" data-category="distribucion">
-            <div class="project-card__img-wrap">
-              <img src="assets/img/proyectos/distribucion.png" alt="Plataforma de Distribución" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/distribucion.png" data-caption="Plataforma de Distribución — Logística y Rutas de Despacho" aria-label="Ampliar imagen">
-                <i class="fa-solid fa-magnifying-glass-plus"></i>
-              </button>
-            </div>
-            <div class="project-card__body">
-              <span class="project-card__category">Distribución</span>
-              <h2 class="project-card__title">Plataforma de Distribución</h2>
-              <p class="project-card__desc">
-                Organización de despachos por camión según volumen y peso, guías de despacho, seguimiento de entregas en ruta y conciliación precisa de mercancía y cobranza.
-              </p>
-              <div class="project-card__tags">
-                <span class="project-card__tag">Rutas de Entrega</span>
-                <span class="project-card__tag">Flota</span>
-                <span class="project-card__tag">Despachos</span>
+          <!-- 4. Producción -->
+          <article class="project-card reveal grid-item produccion" data-category="produccion" data-gallery-images="assets/img/proyectos/produccion-1.png::Ingreso de Productos Terminados a Bodega|assets/img/proyectos/produccion-2.png::Módulo de Sub-Procesos de Manufactura|assets/img/proyectos/produccion-3.png::Catálogo de Productos y Materia Prima|assets/img/proyectos/produccion-4.png::Salidas de Almacén a Bodega de Procesos|assets/img/proyectos/produccion-5.png::Planificación de Órdenes de Producción y Explosión de Materiales">
+            <div class="project-card__mockup">
+              <div class="project-card__mockup-bar">
+                <div class="project-card__dots"><span></span><span></span><span></span></div>
+                <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">manufacturing-mrp.sys</span>
               </div>
-            </div>
-          </article>
-
-          <!-- 5. Producción -->
-          <article class="project-card reveal" data-category="produccion">
-            <div class="project-card__img-wrap">
-              <img src="assets/img/proyectos/produccion.png" alt="Control de Producción & Costeo" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/produccion.png" data-caption="Control de Producción & Costeo — Manufactura y MRP" aria-label="Ampliar imagen">
-                <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <img src="assets/img/proyectos/produccion-1.png" alt="Control de Producción & Costeo" class="project-card__img" loading="lazy">
+              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/produccion-1.png" data-caption="Control de Producción & Costeo — Manufactura y MRP" aria-label="Ampliar imagen">
+                <i class="fa-solid fa-expand"></i>
               </button>
             </div>
             <div class="project-card__body">
@@ -238,12 +219,16 @@
             </div>
           </article>
 
-          <!-- 6. Movilidad -->
-          <article class="project-card reveal" data-category="movil">
-            <div class="project-card__img-wrap">
-              <img src="assets/img/proyectos/app-movil.png" alt="App Móvil de Preventa y Cobranza" class="project-card__img" loading="lazy">
-              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/app-movil.png" data-caption="App Móvil de Preventa y Cobranza — Android" aria-label="Ampliar imagen">
-                <i class="fa-solid fa-magnifying-glass-plus"></i>
+          <!-- 5. Movilidad -->
+          <article class="project-card reveal grid-item movil" data-category="movil" data-gallery-images="assets/img/proyectos/app-movil-1.png::App Móvil de Preventa y Cobranza — Menú Principal|assets/img/proyectos/app-movil-2.png::Catálogo Digital y Selección de Productos|assets/img/proyectos/app-movil-3.png::Toma de Pedidos en Caliente y Carrito|assets/img/proyectos/app-movil-4.png::Catálogo Visual de Artículos con Fotos|assets/img/proyectos/app-movil-5.png::Reporte de Rutas, Visitas y Ventas Efectivas">
+            <div class="project-card__mockup">
+              <div class="project-card__mockup-bar">
+                <div class="project-card__dots"><span></span><span></span><span></span></div>
+                <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">mobile-sales.apk</span>
+              </div>
+              <img src="assets/img/proyectos/app-movil-1.png" alt="App Móvil de Preventa y Cobranza" class="project-card__img" loading="lazy">
+              <button class="project-card__zoom" type="button" data-lightbox="assets/img/proyectos/app-movil-1.png" data-caption="App Móvil de Preventa y Cobranza — Menú Principal" aria-label="Ampliar imagen">
+                <i class="fa-solid fa-expand"></i>
               </button>
             </div>
             <div class="project-card__body">
@@ -312,7 +297,6 @@
             <a href="servicios.html" class="footer-link">Gestión Administrativa</a>
             <a href="servicios.html" class="footer-link">Facturación & POS</a>
             <a href="servicios.html" class="footer-link">Nóminas & RRHH (LOTTT)</a>
-            <a href="servicios.html" class="footer-link">Distribución & Logística</a>
             <a href="servicios.html" class="footer-link">Producción & Costos</a>
             <a href="servicios.html" class="footer-link">Apps Móviles Android</a>
           </div>
