@@ -21,7 +21,7 @@ Sitio corporativo de On-Touch Consulting, C.A. Software empresarial y sistemas E
 │   ├── js/main.js          JavaScript único, sin dependencias
 │   ├── fonts/              Syne y Serotiva (tipografías de marca)
 │   └── img/
-│       ├── clientes/       39 logotipos de clientes en WebP
+│       ├── clientes/       44 logotipos de clientes en WebP
 │       ├── proyectos/      Capturas: versión grande + miniatura
 │       └── …               Logotipo, iconos y imagen para redes
 ├── tools/
@@ -195,7 +195,7 @@ Todas las imágenes son **locales y en WebP**. El sitio ya no depende de
 
 | Carpeta                   | Qué contiene                                        |
 | ------------------------- | --------------------------------------------------- |
-| `assets/img/clientes/`    | 39 logotipos, recortados y a 360 px máximo           |
+| `assets/img/clientes/`    | 44 logotipos, recortados y a 360 px máximo           |
 | `assets/img/proyectos/`   | Capturas: `nombre.webp` (visor) y `nombre-thumb.webp` (tarjeta) |
 | `assets/img/`             | Logotipo, iconos 180/192/512 y `og-image.jpg`        |
 | `favicon.ico`             | Icono multi-resolución para navegadores y cPanel     |
